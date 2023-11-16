@@ -21,9 +21,9 @@ class MainActivity : ComponentActivity() {
         setContent {
 
         }
-        viewModel.test()
+        viewModel.getRandomGifsList()
         lifecycleScope.launch {
-            viewModel.test.collect { test ->
+            viewModel.size.collect { test ->
                 Toast.makeText(this@MainActivity, "$test", Toast.LENGTH_LONG).show()
             }
         }
