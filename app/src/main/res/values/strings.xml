@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TestingGifsProject</string>
+
+    <string name="common_exit">Exit</string>
+    <string name="common_history">History</string>
+
+    <string name="screen_home_title">Home</string>
+
+    <string name="hint_enter">Enter text</string>
 </resources>
