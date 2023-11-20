@@ -12,4 +12,12 @@ interface GifService {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
     ): ListGifResponse
+
+    @GET("gifs/search")
+    suspend fun findGifsByName(
+        @Query("api_key") key: String,
+        @Query("q") name: String,
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int
+    ): ListGifResponse
 }

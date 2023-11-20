@@ -7,7 +7,7 @@ import com.testinggifsproject.repositories.GifRepository
 
 class GifRepositoryImpl(
     private val gifService: GifService
-): GifRepository {
+) : GifRepository {
     override suspend fun getRandomListGifs(limit: Int, offset: Int): GifsModel {
         return try {
             ListGifResponse.mapToDomain(
@@ -18,6 +18,20 @@ class GifRepositoryImpl(
                 )
             )
         } catch (ex: Exception) {
+            throw ex
+        }
+    }
+    override suspend fun findGifsByName(name: String, offset: Int, limit: Int): GifsModel {
+        return try {
+            ListGifResponse.mapToDomain(
+                gifService.findGifsByName(
+                    name = name,
+                    key = "lmLp5f9xrCaT8dRrDiAixYt16ntHnI2M",
+                    limit = limit,
+                    offset = offset
+                )
+            )
+        } catch (ex: Exception){
             throw ex
         }
     }
