@@ -5,7 +5,7 @@ import com.testinggifsproject.repositories.GifRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class FindGifByNameUseCase(
+class   FindGifByNameUseCase(
     private val gifRepository: GifRepository
 ) : BaseUseCase<FindGifByNameUseCase.Params, GifsModel>() {
 
