@@ -46,4 +46,8 @@ dependencies {
     api libs.retrofit
     api libs.converter.gson
     api libs.gson
+    //OkHttp
+    implementation libs.okhttp
+    implementation libs.logging.interceptor
+
 }

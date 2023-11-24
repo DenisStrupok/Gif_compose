@@ -3,6 +3,7 @@ package com.testinggifsproject.features.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,7 +41,10 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onItemClick: (String) -> Unit,
+    actionOnExit: () -> Unit
+) {
     val viewModel: HomeVM = koinViewModel()
     val gifsState by remember {
         viewModel.gifs
@@ -85,7 +89,7 @@ fun HomeScreen() {
                     .fillMaxWidth()
                     .padding(16.dp)
                     .background(color = Color.Gray),
-                value = gifName ?: "", onValueChange = { name->
+                value = gifName ?: "", onValueChange = { name ->
                     viewModel.setNameGif(name)
                 },
                 placeholder = {
@@ -103,7 +107,7 @@ fun HomeScreen() {
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 itemsIndexed(gifsState?.data.orEmpty()) { _, gif ->
-                    GifItem(gif = gif)
+                    GifItem(gif = gif, onItemClick = onItemClick)
                 }
             }
 
@@ -113,7 +117,9 @@ fun HomeScreen() {
                     .padding(16.dp),
                 verticalAlignment = Alignment.Bottom,
             ) {
-                Button(onClick = { }) {
+                Button(onClick = {
+                    actionOnExit.invoke()
+                }) {
                     Text(
                         text = stringResource(id = R.string.common_exit), modifier = Modifier
                             .padding(16.dp)
@@ -134,7 +140,7 @@ fun HomeScreen() {
 }
 
 @Composable
-fun GifItem(gif: Gif) {
+fun GifItem(gif: Gif, onItemClick: (String) -> Unit) {
     Box(
         modifier = Modifier
             .border(
@@ -143,6 +149,9 @@ fun GifItem(gif: Gif) {
                 brush = Brush.linearGradient(colors = listOf(Color.White, Color.Red, Color.Black))
             )
             .padding(16.dp)
+            .clickable {
+                onItemClick(gif.id)
+            }
     ) {
         AsyncImage(
             model = gif.images.original?.url, contentDescription = null,

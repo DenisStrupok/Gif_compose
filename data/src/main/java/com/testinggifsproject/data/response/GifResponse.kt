@@ -12,10 +12,10 @@ data class GifResponse(
     val url: String?,
     @SerializedName("images")
     val images: ImageResponse
-){
-    companion object: ModelMapper<Gif, GifResponse> {
+) {
+    companion object : ModelMapper<Gif, GifResponse> {
         override fun mapTo(model: Gif): GifResponse {
-            return with(model){
+            return with(model) {
                 GifResponse(
                     id = id,
                     url = url,
@@ -25,7 +25,7 @@ data class GifResponse(
         }
 
         override fun mapToDomain(model: GifResponse): Gif {
-            return with(model){
+            return with(model) {
                 Gif(
                     id = id,
                     url = url,
@@ -40,9 +40,9 @@ data class ListGifResponse(
     val data: List<GifResponse>?,
     val pagination: PaginationResponse?
 ) {
-    companion object: ModelMapper<GifsModel, ListGifResponse> {
+    companion object : ModelMapper<GifsModel, ListGifResponse> {
         override fun mapTo(model: GifsModel): ListGifResponse {
-            return with(model){
+            return with(model) {
                 ListGifResponse(
                     data = data?.map { GifResponse.mapTo(it) },
                     pagination = paginationModel?.let { PaginationResponse.mapTo(it) }
@@ -51,7 +51,7 @@ data class ListGifResponse(
         }
 
         override fun mapToDomain(model: ListGifResponse): GifsModel {
-            return with(model){
+            return with(model) {
                 GifsModel(
                     data = data?.map { GifResponse.mapToDomain(it) } as MutableList<Gif>?,
                     paginationModel = pagination?.let { PaginationResponse.mapToDomain(it) }

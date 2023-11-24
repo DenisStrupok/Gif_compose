@@ -1,5 +1,8 @@
 package com.testinggifsproject.repositories
 
+import com.testinggifsproject.model.Gif
+import com.testinggifsproject.model.GifModelData
+import com.testinggifsproject.model.GifTesModel
 import com.testinggifsproject.model.GifsModel
 
 interface GifRepository {
@@ -7,4 +10,5 @@ interface GifRepository {
 
     suspend fun findGifsByName(name: String, offset: Int, limit: Int): GifsModel
 
+    suspend fun getGifById(id: String): GifModelData
 }
