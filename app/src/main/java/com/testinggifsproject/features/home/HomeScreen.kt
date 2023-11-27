@@ -39,11 +39,12 @@ import com.testinggifsproject.R
 import com.testinggifsproject.model.Gif
 import org.koin.androidx.compose.koinViewModel
 
-
+@Preview
 @Composable
 fun HomeScreen(
     onItemClick: (String) -> Unit,
-    actionOnExit: () -> Unit
+    actionOnExit: () -> Unit,
+    actionOpenHistory: () -> Unit
 ) {
     val viewModel: HomeVM = koinViewModel()
     val gifsState by remember {
@@ -127,7 +128,9 @@ fun HomeScreen(
                     )
 
                 }
-                Button(onClick = { }) {
+                Button(onClick = {
+                    actionOpenHistory.invoke()
+                }) {
                     Text(
                         text = stringResource(id = R.string.common_history), modifier = Modifier
                             .padding(16.dp)

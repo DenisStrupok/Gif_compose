@@ -10,5 +10,7 @@
 
     <string name="screen_detail_name_gif">Title: %s</string>
     <string name="screen_detail_author">Author: %s</string>
+
+    <string name="screen_history_empty_message">List is empty</string>
     <string name="hint_enter">Enter text</string>
 </resources>

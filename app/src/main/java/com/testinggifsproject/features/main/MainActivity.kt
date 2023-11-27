@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.testinggifsproject.features.detail.DetailScreen
+import com.testinggifsproject.features.history.HistoryScreen
 import com.testinggifsproject.features.home.HomeScreen
 
 class MainActivity : ComponentActivity() {
@@ -24,13 +25,23 @@ class MainActivity : ComponentActivity() {
                         navController.navigate(route = "DetailScreen/$id")
                     }, actionOnExit = {
                         this@MainActivity.finishAffinity()
-                    }
+                    },
+                        actionOpenHistory = {
+                            navController.navigate(route = "HistoryScreen")
+                        }
                     )
                 }
                 composable(route = "DetailScreen/{gifId}") { backStackEntry ->
                     DetailScreen(
                         gifId = backStackEntry.arguments?.getString("gifId"),
                         actionBackClick = {
+                            navController.popBackStack()
+                        }
+                    )
+                }
+                composable(route = "HistoryScreen") {
+                    HistoryScreen(
+                        actionBack = {
                             navController.popBackStack()
                         }
                     )
