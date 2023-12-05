@@ -1,5 +1,7 @@
 package com.testinggifsproject.data.response
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.testinggifsproject.model.GifModelData
 import com.testinggifsproject.model.GifTesModel
@@ -28,9 +30,11 @@ data class GifResponseData(
     }
 }
 
+@Entity(tableName = "gif_table")
 data class GifTestResponse(
+    @PrimaryKey
     @SerializedName("id")
-    val id: String?,
+    val id: String,
     @SerializedName("slug")
     val slug: String?,
     @SerializedName("url")
@@ -56,7 +60,7 @@ data class GifTestResponse(
         override fun mapTo(model: GifTesModel): GifTestResponse {
             return with(model) {
                 GifTestResponse(
-                    id = id,
+                    id = id ?: "",
                     slug = slug,
                     url = url,
                     bitlyUrl = bitlyUrl,

@@ -1,5 +1,7 @@
 package com.testinggifsproject.features.history
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,9 +35,10 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HistoryScreen(
-    actionBack: () -> Unit
+    actionBack: () -> Unit,
 ) {
     val vm: HistoryVM = koinViewModel()
+    vm.getListHistory()
     val list = vm.listHistory.collectAsState()
 
     Box(
@@ -65,38 +69,16 @@ fun HistoryScreen(
                     .padding(top = 16.dp)
             )
         }
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.list),
-                contentDescription = null,
-                modifier = Modifier
-                    .width(160.dp)
-                    .height(180.dp)
-                    .padding(16.dp),
-                tint = Color.White
-            )
-            Text(
-                text = stringResource(id = R.string.screen_history_empty_message),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                fontSize = 20.sp,
-                textAlign = TextAlign.Center,
-                color = Color.White
-            )
-        }
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
         ) {
+            if (list.value.isEmpty()) {
+                EmptyState()
+            } else {
+                ShowList()
+            }
             Button(
                 onClick = {
                     actionBack.invoke()
@@ -109,5 +91,51 @@ fun HistoryScreen(
             }
         }
     }
+}
 
+@Composable
+fun EmptyState() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        //.align(Alignment.Center),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.list),
+            contentDescription = null,
+            modifier = Modifier
+                .width(160.dp)
+                .height(180.dp)
+                .padding(16.dp),
+            tint = Color.White
+        )
+        Text(
+            text = stringResource(id = R.string.screen_history_empty_message),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center,
+            color = Color.White
+        )
+    }
+}
+
+@Composable
+fun ShowList() {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = stringResource(id = R.string.screen_clear_history),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            fontSize = 14.sp,
+            fontStyle = FontStyle.Italic
+        )
+    }
 }

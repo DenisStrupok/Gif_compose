@@ -11,4 +11,6 @@ interface GifRepository {
     suspend fun findGifsByName(name: String, offset: Int, limit: Int): GifsModel
 
     suspend fun getGifById(id: String): GifModelData
+
+    suspend fun getHistory(): List<GifTesModel>
 }
