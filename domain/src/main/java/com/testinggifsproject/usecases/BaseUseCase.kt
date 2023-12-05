@@ -10,7 +10,7 @@ abstract class BaseUseCase<PARAMS, RESULT> : UseCase<RESULT, PARAMS> {
     operator fun invoke(
         uiDispatcher: CoroutineScope,
         result: ResultCallbacks<RESULT>,
-        params: PARAMS
+        params: PARAMS?
     ): Job {
         return uiDispatcher.launch {
             withContext(Dispatchers.Main) {

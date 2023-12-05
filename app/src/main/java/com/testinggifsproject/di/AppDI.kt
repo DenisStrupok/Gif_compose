@@ -14,7 +14,7 @@ private val viewModelsModule = module {
         DetailVM(get())
     }
     viewModel {
-        HistoryVM()
+        HistoryVM(get())
     }
 }
 val appModule = arrayOf(viewModelsModule)

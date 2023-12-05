@@ -1,5 +1,6 @@
 package com.testinggifsproject.data.repositories
 
+import com.testinggifsproject.data.database.GifDatabase
 import com.testinggifsproject.data.response.GifResponseData
 import com.testinggifsproject.data.response.GifTestResponse
 import com.testinggifsproject.data.response.ListGifResponse
@@ -10,7 +11,8 @@ import com.testinggifsproject.model.GifsModel
 import com.testinggifsproject.repositories.GifRepository
 
 class GifRepositoryImpl(
-    private val gifService: GifService
+    private val gifService: GifService,
+    private val database: GifDatabase
 ) : GifRepository {
     override suspend fun getRandomListGifs(limit: Int, offset: Int): GifsModel {
         return try {
@@ -42,6 +44,11 @@ class GifRepositoryImpl(
     }
 
     override suspend fun getGifById(id: String): GifModelData {
+        val gifResult = gifService.getGifById(
+            id = id,
+            key = "lmLp5f9xrCaT8dRrDiAixYt16ntHnI2M"
+        )
+        database.dao.insertGif(gifResult.data)
         return try {
             GifResponseData.mapToDomain(
                 gifService.getGifById(
@@ -49,6 +56,14 @@ class GifRepositoryImpl(
                     key = "lmLp5f9xrCaT8dRrDiAixYt16ntHnI2M",
                 )
             )
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    override suspend fun getHistory(): List<GifTesModel> {
+        return try {
+            database.dao.getAllGifs().map { GifTestResponse.mapToDomain(it) }
         } catch (e: Exception) {
             throw e
         }

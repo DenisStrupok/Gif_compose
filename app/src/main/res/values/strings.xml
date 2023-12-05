@@ -12,5 +12,7 @@
     <string name="screen_detail_author">Author: %s</string>
 
     <string name="screen_history_empty_message">List is empty</string>
+    <string name="screen_clear_history">Clear your history</string>
     <string name="hint_enter">Enter text</string>
+
 </resources>
