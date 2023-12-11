@@ -50,12 +50,7 @@ class GifRepositoryImpl(
         )
         database.dao.insertGif(gifResult.data)
         return try {
-            GifResponseData.mapToDomain(
-                gifService.getGifById(
-                    id = id,
-                    key = "lmLp5f9xrCaT8dRrDiAixYt16ntHnI2M",
-                )
-            )
+            GifResponseData.mapToDomain(gifResult)
         } catch (e: Exception) {
             throw e
         }

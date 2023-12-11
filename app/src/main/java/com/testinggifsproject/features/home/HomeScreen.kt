@@ -1,5 +1,6 @@
 package com.testinggifsproject.features.home
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,7 +17,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +34,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -39,7 +41,6 @@ import com.testinggifsproject.R
 import com.testinggifsproject.model.Gif
 import org.koin.androidx.compose.koinViewModel
 
-@Preview
 @Composable
 fun HomeScreen(
     onItemClick: (String) -> Unit,
@@ -111,31 +112,46 @@ fun HomeScreen(
                     GifItem(gif = gif, onItemClick = onItemClick)
                 }
             }
-
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
                 verticalAlignment = Alignment.Bottom,
             ) {
-                Button(onClick = {
-                    actionOnExit.invoke()
-                }) {
-                    Text(
-                        text = stringResource(id = R.string.common_exit), modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth(0.25F)
+                Button(
+                    onClick = {
+                        actionOnExit.invoke()
+                    },
+                    modifier = Modifier
+                        .weight(0.3F)
+                        .padding(end = 16.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = Color.White,
+                        containerColor = Color.Black
+                    ),
+                    border = BorderStroke(width = 2.dp, color = Color.White)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.exit_left),
+                        contentDescription = null
                     )
-
                 }
-                Button(onClick = {
-                    actionOpenHistory.invoke()
-                }) {
+                Button(
+                    onClick = {
+                        actionOpenHistory.invoke()
+                    }, modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1F),
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = Color.White,
+                        containerColor = Color.Green
+                    ),
+                    border = BorderStroke(width = 2.dp, color = Color.White)
+                ) {
                     Text(
-                        text = stringResource(id = R.string.common_history), modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth(0.75F)
+                        text = stringResource(id = R.string.common_history)
                     )
+                    Icon(painter = painterResource(id = R.drawable.next), contentDescription = null)
                 }
             }
         }
