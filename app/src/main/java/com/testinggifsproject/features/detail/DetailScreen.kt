@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.ImageDecoder
 import android.os.Build
 import android.widget.ImageView
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,7 +13,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -127,8 +130,14 @@ fun DetailScreen(
                     actionBackClick.invoke()
                 }, modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(16.dp),
+                border = BorderStroke(width = 2.dp, color = Color.White),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Black,
+                    contentColor = Color.White
+                )
             ) {
+                Icon(painter = painterResource(id = R.drawable.back), contentDescription = null)
                 Text(
                     text = stringResource(id = R.string.common_back),
                     textAlign = TextAlign.Center

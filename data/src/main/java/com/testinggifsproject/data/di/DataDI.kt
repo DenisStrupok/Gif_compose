@@ -2,8 +2,10 @@ package com.testinggifsproject.data.di
 
 import androidx.room.Room
 import com.testinggifsproject.data.database.GifDatabase
+import com.testinggifsproject.data.repositories.DatabaseRepositoryImpl
 import com.testinggifsproject.data.repositories.GifRepositoryImpl
 import com.testinggifsproject.data.service.GifService
+import com.testinggifsproject.repositories.DatabaseRepository
 import com.testinggifsproject.repositories.GifRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private val repositoriesModule = module {
     factory<GifRepository> { GifRepositoryImpl(get(), get()) }
+    factory<DatabaseRepository> { DatabaseRepositoryImpl(get()) }
 }
 
 private val serviceModule = module {
